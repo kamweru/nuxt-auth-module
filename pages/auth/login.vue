@@ -20,7 +20,7 @@
 
 <script>
 export default {
-  auth: 'guest',
+  middleware: 'guest',
   data() {
     return {
       login: {
