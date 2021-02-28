@@ -3,8 +3,8 @@
     <div>
       <Logo />
       <div class="links">
-        <input v-model="login.email" type="email" name="email">
-        <input v-model="login.password" type="password" name="password">
+        <input v-model="login.email" type="email" name="email" />
+        <input v-model="login.password" type="password" name="password" />
         <button
           type="submit"
           rel="noopener noreferrer"
@@ -20,7 +20,8 @@
 
 <script>
 export default {
-  data () {
+  middleware: ['auth'],
+  data() {
     return {
       login: {
         email: 'subtillia@gmail.com',
@@ -30,12 +31,12 @@ export default {
     }
   },
   methods: {
-    async userLogin () {
+    async userLogin() {
       return await this.$auth
         .loginWith('local', {
           data: this.login
         })
-        .then((response) => {
+        .then(response => {
           const user = response.data.user
           this.$auth.setUser(user)
           this.$auth.$storage.setUniversal('user', user, true)
