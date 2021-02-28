@@ -1,5 +1,6 @@
-export default function({ store, redirect }) {
+export default function ({ store, redirect }) {
+  console.log(store.state)
   if (store.state.auth.loggedIn) {
-    return redirect("/");
+    return redirect('/')
   }
 }
