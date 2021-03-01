@@ -1,6 +1,6 @@
 export default {
   // Target: https://go.nuxtjs.dev/config-target
-  target: "static",
+  target: "server",
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -20,7 +20,7 @@ export default {
   css: [],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [],
+  plugins: [{ src: "~/plugins/vuex-persist", mode: "client" }],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -45,20 +45,23 @@ export default {
   },
 
   auth: {
+    redirect: {
+      login: "/auth/login",
+      logout: "/",
+      home: "/",
+      callback: false // not used here in our case
+    },
+    localStorage: false, // REALLY not secure, so nah
+    resetOnError: true, // kick the user if any error happens w/ the auth
     strategies: {
       local: {
+        token: { property: "token" },
+        user: { property: null, autoFetch: false },
         endpoints: {
-          login: {
-            url: "/user/login",
-            method: "post",
-            propertyName: "data.token"
-          },
-          user: false,
-          logout: false
-        },
-        tokenRequired: false,
-        tokenType: false,
-        tokenName: "x-auth-token"
+          login: { url: "/user/login", method: "post" },
+          logout: false,
+          user: false
+        }
       }
     }
   },

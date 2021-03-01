@@ -2,6 +2,9 @@
   <div class="container">
     <div>
       <Logo />
+      <hr />
+      <pre>logged in: {{ $auth.loggedIn }}</pre>
+      <hr />
       <div class="links">
         <input v-model="login.email" type="email" name="email" />
         <input v-model="login.password" type="password" name="password" />
@@ -20,7 +23,7 @@
 
 <script>
 export default {
-  middleware: 'guest',
+  middleware: ['guest'],
   data() {
     return {
       login: {
@@ -32,16 +35,14 @@ export default {
   },
   methods: {
     async userLogin() {
-      await this.$auth
+      return await this.$auth
         .loginWith('local', {
           data: this.login
         })
         .then(response => {
-          const user = response.data.user
+          const user = response.data.user || false
           this.$auth.setUser(user)
-          this.$auth.$storage.setUniversal('user', user, true)
           this.$router.push('/')
-          console.log(this.$auth.$storage.getUniversal('user'))
         })
         .catch(err => console.error(err.response))
     }

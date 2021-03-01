@@ -1,30 +1,27 @@
 <template>
   <div>
     <h1>Welcome to user profile</h1>
-    <button @click="logout">
-      log out
-    </button>
-    <pre>{{ state }}</pre>
-    <hr>
+    <button class="button--grey" @click="logout">log out</button>
+    <hr />
+    <pre>isAuthenticated: {{ isAuthenticated }}</pre>
+    <hr />
+    <pre>{{ loggedInUser }}</pre>
+    <hr />
+    <pre>{{ $auth.strategy.token.get() }}</pre>
+    <hr />
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
   middleware: ['auth'],
   computed: {
-    state () {
-      return JSON.stringify(
-        this.$auth.$storage.getUniversal('user'),
-        undefined,
-        2
-      )
-    }
+    ...mapGetters(['isAuthenticated', 'loggedInUser'])
   },
   methods: {
-    logout () {
-      this.$auth.logout()
-      this.$auth.$storage.removeUniversal('user')
+    async logout() {
+      await this.$auth.logout()
     }
   }
 }
