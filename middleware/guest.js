@@ -1,6 +1,6 @@
 export default function(context) {
-  if (context.$auth.$state.loggedIn) {
-    return context.$auth.redirect("/");
+  if (context.store.state.auth.loggedIn) {
+    return context.redirect("/");
   }
 }
 // export default function({ $auth, redirect }) {
