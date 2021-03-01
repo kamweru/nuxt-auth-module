@@ -4,12 +4,18 @@
       <Logo />
       <h1 class="title">nuxt-auth</h1>
       <div>
-        User status:
+        User status thru $auth:
         <b-badge>{{ $auth.$state.loggedIn ? "Logged In" : "Guest" }}</b-badge>
+      </div>
+      <div>
+        User status thru store:
+        <b-badge>{{
+          $store.state.auth.loggedIn ? "Logged In" : "Guest"
+        }}</b-badge>
       </div>
       <hr />
       <div class="links">
-        <div v-if="loggedIn">
+        <div v-if="$store.state.auth.loggedIn">
           <a href="/profile" rel="noopener noreferrer" class="button--grey">
             Profile
           </a>
@@ -30,11 +36,6 @@
 
 <script>
 export default {
-  computed: {
-    loggedIn() {
-      return this.$store.state.auth.loggedIn
-    }
-  },
   methods: {
     async logout() {
       await this.$auth.logout()
