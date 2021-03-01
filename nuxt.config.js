@@ -45,11 +45,6 @@ export default {
   },
 
   auth: {
-    redirect: {
-      login: "/auth/login",
-      logout: "/",
-      home: "/profile"
-    },
     strategies: {
       local: {
         endpoints: {

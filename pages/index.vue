@@ -4,9 +4,12 @@
       <Logo />
       <h1 class="title">nuxt-auth</h1>
       <div class="links">
-        <button v-if="$auth.$state.loggedIn" @click="$auth.logout()">
-          log out
-        </button>
+        <div v-if="$auth.$state.loggedIn">
+          <a href="/profile" rel="noopener noreferrer" class="button--grey">
+            Profile
+          </a>
+          <button @click="logout">log out</button>
+        </div>
         <a
           v-else
           href="/auth/login"
@@ -22,6 +25,12 @@
 
 <script>
 export default {
+  methods: {
+    logout() {
+      this.$auth.logout()
+      this.$auth.$storage.removeUniversal('user')
+    }
+  },
   mounted() {
     console.log(this.$auth)
   }
