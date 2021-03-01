@@ -35,7 +35,7 @@ export default {
   },
   methods: {
     async userLogin() {
-      return await this.$auth
+      await this.$auth
         .loginWith('local', {
           data: this.login
         })
