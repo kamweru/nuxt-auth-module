@@ -3,20 +3,17 @@
     <div>
       <Logo />
       <h1 class="title">nuxt-auth</h1>
-      <hr />
-      <pre>{{ loggedInUser }}</pre>
-      <hr />
-      <pre>isAuthenticated: {{ isAuthenticated }}</pre>
+      <pre>$auth.$state.loggedIn: {{ $auth.$state.loggedIn }}</pre>
       <hr />
       <div class="links">
-        <div v-if="isAuthenticated">
+        <div v-if="$auth.$state.loggedIn">
           <a href="/profile" rel="noopener noreferrer" class="button--grey">
             Profile
           </a>
           <button class="button--grey" @click="logout">log out</button>
         </div>
         <a
-          v-if="!isAuthenticated"
+          v-else
           href="/auth/login"
           rel="noopener noreferrer"
           class="button--grey"
@@ -29,12 +26,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
 export default {
-  // middleware: ['auth', 'guest'],
-  computed: {
-    ...mapGetters(['isAuthenticated', 'loggedInUser'])
-  },
   methods: {
     async logout() {
       await this.$auth.logout()
