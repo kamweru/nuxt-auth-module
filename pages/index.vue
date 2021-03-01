@@ -2,6 +2,7 @@
   <div class="container">
     <div>
       <Logo />
+      <pre>{{ state }}</pre>
       <h1 class="title">nuxt-auth</h1>
       <pre>$auth.$state.loggedIn: {{ $auth.$state.loggedIn }}</pre>
       <hr />
@@ -27,6 +28,11 @@
 
 <script>
 export default {
+  computed: {
+    state() {
+      return this.$auth.$state
+    }
+  },
   methods: {
     async logout() {
       await this.$auth.logout()
