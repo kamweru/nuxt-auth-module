@@ -7,7 +7,7 @@
       <pre>$auth.$state.loggedIn: {{ $auth.$state.loggedIn }}</pre>
       <hr />
       <div class="links">
-        <div v-if="$auth.$state.loggedIn">
+        <div v-if="loggedIn">
           <a href="/profile" rel="noopener noreferrer" class="button--grey">
             Profile
           </a>
@@ -29,8 +29,8 @@
 <script>
 export default {
   computed: {
-    state() {
-      return this.$auth.$state
+    loggedIn() {
+      return this.$auth.$state.loggedIn
     }
   },
   methods: {
