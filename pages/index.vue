@@ -3,7 +3,7 @@
     <div>
       <Logo />
       <h1 class="title">nuxt-auth</h1>
-      <pre>loggedIn: {{ loggedIn }}</pre>
+      <pre>loggedIn: {{ typeof loggedIn }}</pre>
       <hr />
       <div class="links">
         <div v-if="loggedIn">
