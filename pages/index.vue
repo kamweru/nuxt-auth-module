@@ -22,7 +22,7 @@
           <button class="button--grey" @click="logout">log out</button>
         </div>
         <a
-          v-else
+          v-if="!$store.state.auth.loggedIn"
           href="/auth/login"
           rel="noopener noreferrer"
           class="button--grey"
