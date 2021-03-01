@@ -8,10 +8,8 @@
         <b-badge>{{ $auth.$state.loggedIn ? "Logged In" : "Guest" }}</b-badge>
       </div>
       <div>
-        User status thru store:
-        <b-badge>{{
-          $store.state.auth.loggedIn ? "Logged In" : "Guest"
-        }}</b-badge>
+        mapstate loggedIn:
+        <b-badge>{{ loggedIn ? "Logged In" : "Guest" }}</b-badge>
       </div>
       <hr />
       <div class="links">
@@ -35,7 +33,11 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
+  computed: {
+    ...mapState('auth', ['loggedIn'])
+  },
   methods: {
     async logout() {
       await this.$auth.logout()
