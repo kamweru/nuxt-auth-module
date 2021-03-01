@@ -2,9 +2,8 @@
   <div class="container">
     <div>
       <Logo />
-      <pre>{{ state }}</pre>
       <h1 class="title">nuxt-auth</h1>
-      <pre>$auth.$state.loggedIn: {{ $auth.$state.loggedIn }}</pre>
+      <pre>loggedIn: {{ loggedIn }}</pre>
       <hr />
       <div class="links">
         <div v-if="loggedIn">
@@ -30,7 +29,7 @@
 export default {
   computed: {
     loggedIn() {
-      return this.$auth.$state.loggedIn
+      return this.$store.state.auth.loggedIn
     }
   },
   methods: {
