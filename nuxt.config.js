@@ -48,7 +48,7 @@ export default {
     redirect: {
       login: "/auth/login",
       logout: "/",
-      home: "/",
+      home: false,
       callback: false // not used here in our case
     },
     localStorage: false, // REALLY not secure, so nah

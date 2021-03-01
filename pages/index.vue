@@ -3,7 +3,10 @@
     <div>
       <Logo />
       <h1 class="title">nuxt-auth</h1>
-      <pre>loggedIn: {{ typeof loggedIn }}</pre>
+      <div>
+        User status:
+        <b-badge>{{ $auth.$state.loggedIn ? "Logged In" : "Guest" }}</b-badge>
+      </div>
       <hr />
       <div class="links">
         <div v-if="loggedIn">
