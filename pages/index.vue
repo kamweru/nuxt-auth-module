@@ -15,14 +15,14 @@
       </div>
       <hr />
       <div class="links">
-        <div v-if="$store.state.auth.loggedIn">
+        <div v-show="$store.state.auth.loggedIn">
           <a href="/profile" rel="noopener noreferrer" class="button--grey">
             Profile
           </a>
           <button class="button--grey" @click="logout">log out</button>
         </div>
         <a
-          v-if="!$store.state.auth.loggedIn"
+          v-show="!$store.state.auth.loggedIn"
           href="/auth/login"
           rel="noopener noreferrer"
           class="button--grey"
