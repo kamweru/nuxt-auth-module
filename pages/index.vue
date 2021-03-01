@@ -31,6 +31,7 @@
 <script>
 import { mapGetters } from 'vuex'
 export default {
+  // middleware: ['auth', 'guest'],
   computed: {
     ...mapGetters(['isAuthenticated', 'loggedInUser'])
   },

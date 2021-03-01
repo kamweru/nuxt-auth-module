@@ -2,12 +2,12 @@
   <div class="container">
     <div>
       <Logo />
-      <hr />
+      <hr>
       <pre>logged in: {{ $auth.loggedIn }}</pre>
-      <hr />
+      <hr>
       <div class="links">
-        <input v-model="login.email" type="email" name="email" />
-        <input v-model="login.password" type="password" name="password" />
+        <input v-model="login.email" type="email" name="email">
+        <input v-model="login.password" type="password" name="password">
         <button
           type="submit"
           rel="noopener noreferrer"
@@ -23,8 +23,8 @@
 
 <script>
 export default {
-  middleware: ['guest'],
-  data() {
+  // middleware: ['auth', 'guest'],
+  data () {
     return {
       login: {
         email: 'subtillia@gmail.com',
@@ -34,12 +34,12 @@ export default {
     }
   },
   methods: {
-    async userLogin() {
+    async userLogin () {
       return await this.$auth
         .loginWith('local', {
           data: this.login
         })
-        .then(response => {
+        .then((response) => {
           const user = response.data.user || false
           this.$auth.setUser(user)
           this.$router.push('/')

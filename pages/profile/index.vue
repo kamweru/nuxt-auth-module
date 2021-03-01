@@ -1,14 +1,16 @@
 <template>
   <div>
     <h1>Welcome to user profile</h1>
-    <button class="button--grey" @click="logout">log out</button>
-    <hr />
+    <button class="button--grey" @click="logout">
+      log out
+    </button>
+    <hr>
     <pre>isAuthenticated: {{ isAuthenticated }}</pre>
-    <hr />
+    <hr>
     <pre>{{ loggedInUser }}</pre>
-    <hr />
+    <hr>
     <pre>{{ $auth.strategy.token.get() }}</pre>
-    <hr />
+    <hr>
   </div>
 </template>
 
@@ -20,7 +22,7 @@ export default {
     ...mapGetters(['isAuthenticated', 'loggedInUser'])
   },
   methods: {
-    async logout() {
+    async logout () {
       await this.$auth.logout()
     }
   }
