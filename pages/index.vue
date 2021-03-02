@@ -3,24 +3,18 @@
     <div>
       <Logo />
       <h1 class="title">nuxt-auth</h1>
-      <div>
-        User status thru $auth:
-        <b-badge>{{ $auth.$state.loggedIn ? "Logged In" : "Guest" }}</b-badge>
-      </div>
-      <div>
-        mapstate loggedIn:
-        <b-badge>{{ loggedIn ? "Logged In" : "Guest" }}</b-badge>
-      </div>
+      <div>isAuthenticated: {{ isAuthenticated }}</div>
       <hr />
       <div class="links">
-        <div v-show="$store.state.auth.loggedIn">
+        <div v-if="isAuthenticated">
           <a href="/profile" rel="noopener noreferrer" class="button--grey">
             Profile
           </a>
           <button class="button--grey" @click="logout">log out</button>
         </div>
+        <!-- v-show="!isAuthenticated" -->
         <a
-          v-show="!$store.state.auth.loggedIn"
+          v-else
           href="/auth/login"
           rel="noopener noreferrer"
           class="button--grey"
@@ -33,14 +27,20 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+// import { mapState } from 'vuex'
+import { mapGetters } from 'vuex'
 export default {
   computed: {
-    ...mapState('auth', ['loggedIn'])
+    // ...mapState('auth', ['isAuthenticated'])
+    ...mapGetters({
+      isAuthenticated: ['auth/isAuthenticated']
+    })
   },
   methods: {
-    async logout() {
-      await this.$auth.logout()
+    logout() {
+      this.$store.dispatch('auth/resetAuth')
+      this.$cookies.removeAll()
+      this.$router.push('/')
     }
   }
 }

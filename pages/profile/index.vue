@@ -7,9 +7,9 @@
     <hr>
     <pre>isAuthenticated: {{ isAuthenticated }}</pre>
     <hr>
-    <pre>{{ loggedInUser }}</pre>
+    <pre>{{ isAuthenticated ? isAuthenticated.isAuthenticated : "" }}</pre>
     <hr>
-    <pre>{{ $auth.strategy.token.get() }}</pre>
+    <!-- <pre>{{ $auth.strategy.token.get() }}</pre> -->
     <hr>
   </div>
 </template>
@@ -17,13 +17,17 @@
 <script>
 import { mapGetters } from 'vuex'
 export default {
-  middleware: ['auth'],
+  middleware: ['authenticated'],
   computed: {
-    ...mapGetters(['isAuthenticated', 'loggedInUser'])
+    ...mapGetters({
+      isAuthenticated: ['auth/isAuthenticated']
+    })
   },
   methods: {
-    async logout () {
-      await this.$auth.logout()
+    logout () {
+      this.$store.dispatch('auth/resetAuth')
+      this.$cookies.removeAll()
+      this.$router.push('/')
     }
   }
 }

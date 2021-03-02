@@ -2,12 +2,12 @@
   <div class="container">
     <div>
       <Logo />
-      <hr />
-      <pre>logged in: {{ $auth.loggedIn }}</pre>
-      <hr />
+      <hr>
+      <!-- <pre>logged in: {{ $auth.loggedIn }}</pre> -->
+      <hr>
       <div class="links">
-        <input v-model="login.email" type="email" name="email" />
-        <input v-model="login.password" type="password" name="password" />
+        <input v-model="login.email" type="email" name="email">
+        <input v-model="login.password" type="password" name="password">
         <button
           type="submit"
           rel="noopener noreferrer"
@@ -23,8 +23,8 @@
 
 <script>
 export default {
-  middleware: ['guest'],
-  data() {
+  middleware: ['authenticated'],
+  data () {
     return {
       login: {
         email: 'subtillia@gmail.com',
@@ -34,17 +34,19 @@ export default {
     }
   },
   methods: {
-    async userLogin() {
-      await this.$auth
-        .loginWith('local', {
-          data: this.login
-        })
-        .then(response => {
-          const user = response.data.user || false
-          this.$auth.setUser(user)
+    async userLogin () {
+      await this.$axios
+        .$post('/user/login', this.login)
+        .then((response) => {
+          delete response.message
+          this.$store.commit('auth/setAuth', response)
+          this.$cookies.set('auth', response, {
+            path: '/',
+            maxAge: 60 * 60 * 24 * 7
+          })
           this.$router.push('/')
         })
-        .catch(err => console.error(err.response))
+        .catch(err => console.log(err.response))
     }
   }
 }

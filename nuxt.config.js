@@ -30,42 +30,22 @@ export default {
     // https://go.nuxtjs.dev/eslint
     "@nuxtjs/eslint-module"
   ],
-
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     // https://go.nuxtjs.dev/bootstrap
     "bootstrap-vue/nuxt",
     // https://go.nuxtjs.dev/axios
     "@nuxtjs/axios",
-    "@nuxtjs/auth-next"
+    "cookie-universal-nuxt"
   ],
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     baseURL: "https://vue-be.herokuapp.com"
   },
 
-  auth: {
-    redirect: {
-      login: "/auth/login",
-      logout: "/",
-      home: false,
-      callback: false // not used here in our case
-    },
-    localStorage: false, // REALLY not secure, so nah
-    resetOnError: true, // kick the user if any error happens w/ the auth
-    strategies: {
-      local: {
-        token: { property: "token" },
-        user: { property: null, autoFetch: false },
-        endpoints: {
-          login: { url: "/user/login", method: "post" },
-          logout: false,
-          user: false
-        }
-      }
-    }
-  },
-
+  // router: {
+  //   middleware: "guest"
+  // },
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {}
 };
